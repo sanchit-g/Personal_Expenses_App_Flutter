@@ -22,7 +22,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -32,7 +32,7 @@ class MyHomePage extends StatelessWidget {
             color: Colors.blue,
             child: Container(
               width: double.infinity,
-              child: Text('CHART!'),
+              child: Text('CHART'),
             ),
             elevation: 5,
           ),
