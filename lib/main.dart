@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:test_app/models/transaction.dart';
 import 'package:test_app/widgets/chart.dart';
 import 'package:test_app/widgets/new_transactions.dart';
 import 'package:test_app/widgets/transaction_list.dart';
 
 void main(List<String> args) {
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
   runApp(MyApp());
 }
 
@@ -87,23 +90,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text('Personal Expenses'),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Personal Expenses'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _startAddNewTransaction(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+              child: Chart(_recentTransactions),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.35,
+            ),
+            Container(
+              child: TransactionList(_userTransactions, _deleteTransaction),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.65,
+            ),
           ],
         ),
       ),
